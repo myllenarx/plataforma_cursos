@@ -310,12 +310,31 @@ function listarCertificados() {
         let usuario = usuarios.find(u => u.id == cert.idUsuario);
         let curso = cursos.find(c => c.id == cert.idCurso);
 
-        lista.innerHTML += `
-            <li class="list-group-item">
-                🎓 ${usuario?.nome} concluiu ${curso?.titulo}
-                <br>
-                <small>Código: ${cert.codigo} | Data: ${cert.data}</small>
-            </li>
-        `;
+    lista.innerHTML += `
+        <li class="list-group-item" onclick="abrirCertificado(${cert.id})" style="cursor:pointer;">
+            🎓 ${usuario?.nome} concluiu ${curso?.titulo}
+            <br>
+            <small>Código: ${cert.codigo} | Data: ${cert.data}</small>
+        </li>
+    `;
     });
+}
+
+function abrirCertificado(id) {
+
+    let cert = certificados.find(c => c.id == id);
+
+    let usuario = usuarios.find(u => u.id == cert.idUsuario);
+    let curso = cursos.find(c => c.id == cert.idCurso);
+
+    document.getElementById("certTexto").innerHTML =
+        `<strong>${usuario.nome}</strong><br>
+         concluiu o curso<br>
+         <strong>${curso.titulo}</strong>`;
+
+    document.getElementById("certCodigo").innerText =
+        `Código: ${cert.codigo} | Data: ${cert.data}`;
+
+    let modal = new bootstrap.Modal(document.getElementById("modalCertificado"));
+    modal.show();
 }
