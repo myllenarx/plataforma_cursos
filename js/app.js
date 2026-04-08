@@ -103,6 +103,7 @@ function cadastrarCurso() {
     cursos.push(curso);
 
     listarCursos();
+    atualizarSelectCursos();
 }
 
 function listarCursos() {
@@ -121,6 +122,122 @@ function listarCursos() {
                 - ${curso.descricao} 
                 <br>
                 <small>Categoria: ${categoria ? categoria.nome : "Não encontrada"}</small>
+            </li>
+        `;
+    });
+}
+
+class Usuario {
+    constructor(id, nome, email) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+    }
+}
+
+class Matricula {
+    constructor(id, idUsuario, idCurso, data) {
+        this.id = id;
+        this.idUsuario = idUsuario;
+        this.idCurso = idCurso;
+        this.data = data;
+    }
+}
+
+let usuarios = [];
+let matriculas = [];
+
+function cadastrarUsuario() {
+
+    let nome = document.getElementById("nomeUsuario").value;
+    let email = document.getElementById("emailUsuario").value;
+
+    if (nome === "" || email === "") {
+        alert("Preencha todos os campos!");
+        return;
+    }
+
+    let usuario = new Usuario(Date.now(), nome, email);
+
+    usuarios.push(usuario);
+
+    listarUsuarios();
+    atualizarSelectUsuarios();
+}
+
+function listarUsuarios() {
+
+    let lista = document.getElementById("listaUsuarios");
+
+    lista.innerHTML = "";
+
+    usuarios.forEach(user => {
+        lista.innerHTML += `
+            <li class="list-group-item">
+                ${user.nome} - ${user.email}
+            </li>
+        `;
+    });
+}
+
+function atualizarSelectUsuarios() {
+    let select = document.getElementById("selectUsuario");
+
+    select.innerHTML = `<option value="">Selecione um usuário</option>`;
+
+    usuarios.forEach(u => {
+        select.innerHTML += `<option value="${u.id}">${u.nome}</option>`;
+    });
+}
+
+function atualizarSelectCursos() {
+    let select = document.getElementById("selectCursoMatricula");
+
+    select.innerHTML = `<option value="">Selecione um curso</option>`;
+
+    cursos.forEach(c => {
+        select.innerHTML += `<option value="${c.id}">${c.titulo}</option>`;
+    });
+}
+
+function realizarMatricula() {
+
+    let idUsuario = document.getElementById("selectUsuario").value;
+    let idCurso = document.getElementById("selectCursoMatricula").value;
+
+    if (idUsuario === "" || idCurso === "") {
+        alert("Selecione usuário e curso!");
+        return;
+    }
+
+    let matricula = new Matricula(
+        Date.now(),
+        idUsuario,
+        idCurso,
+        new Date().toLocaleDateString()
+    );
+
+    matriculas.push(matricula);
+
+    listarMatriculas();
+}
+
+function listarMatriculas() {
+
+    let lista = document.getElementById("listaMatriculas");
+
+    lista.innerHTML = "";
+
+    matriculas.forEach(m => {
+
+        let usuario = usuarios.find(u => u.id == m.idUsuario);
+        let curso = cursos.find(c => c.id == m.idCurso);
+
+        lista.innerHTML += `
+            <li class="list-group-item">
+                ${usuario?.nome} matriculado em ${curso?.titulo}
+                <br>
+                <small>Data: ${m.data}</small>
             </li>
         `;
     });

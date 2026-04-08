@@ -66,6 +66,49 @@
 
 </div>
 
+<div class="card mt-4">
+    <div class="card-header">Cadastrar Usuário</div>
+    <div class="card-body">
+
+        <input id="nomeUsuario" class="form-control mb-2" placeholder="Nome">
+        <input id="emailUsuario" class="form-control mb-2" placeholder="Email">
+
+        <button class="btn btn-primary" onclick="cadastrarUsuario()">
+            Salvar Usuário
+        </button>
+
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header">Usuários</div>
+    <ul id="listaUsuarios" class="list-group list-group-flush"></ul>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header">Realizar Matrícula</div>
+    <div class="card-body">
+
+        <select id="selectUsuario" class="form-control mb-2">
+            <option value="">Selecione um usuário</option>
+        </select>
+
+        <select id="selectCursoMatricula" class="form-control mb-2">
+            <option value="">Selecione um curso</option>
+        </select>
+
+        <button class="btn btn-warning" onclick="realizarMatricula()">
+            Matricular
+        </button>
+
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header">Matrículas</div>
+    <ul id="listaMatriculas" class="list-group list-group-flush"></ul>
+</div>
+
 <script src="js/app.js"></script>
 </body>
 </html>
