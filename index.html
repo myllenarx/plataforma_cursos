@@ -109,6 +109,30 @@
     <ul id="listaMatriculas" class="list-group list-group-flush"></ul>
 </div>
 
+<div class="card mt-4">
+    <div class="card-header">Gerar Certificado</div>
+    <div class="card-body">
+
+        <select id="selectUsuarioCert" class="form-control mb-2">
+            <option value="">Selecione usuário</option>
+        </select>
+
+        <select id="selectCursoCert" class="form-control mb-2">
+            <option value="">Selecione curso</option>
+        </select>
+
+        <button class="btn btn-success" onclick="gerarCertificado()">
+            Gerar Certificado
+        </button>
+
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header">Certificados</div>
+    <ul id="listaCertificados" class="list-group list-group-flush"></ul>
+</div>
+
 <script src="js/app.js"></script>
 </body>
 </html>
